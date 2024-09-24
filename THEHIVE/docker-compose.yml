@@ -2,7 +2,6 @@
 services:
   thehive:
     image: strangebee/thehive:5.2
-    restart: always
     depends_on:
       - cassandra
       - elasticsearch
@@ -33,7 +32,6 @@ services:
 
   cassandra:
     image: 'cassandra:4'
-    restart: always
     mem_limit: 1600m
     ports:
       - "9042:9042"
@@ -47,7 +45,6 @@ services:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.12
-    restart: always
     mem_limit: 1500m
     ports:
       - "9200:9200"
@@ -59,7 +56,6 @@ services:
 
   minio:
     image: quay.io/minio/minio
-    restart: always
     mem_limit: 512m
     command: ["minio", "server", "/data", "--console-address", ":9090"]
     environment:
