@@ -7,8 +7,9 @@ services:
       - script.allowed_types=inline
       - thread_pool.search.queue_size=100000
       - thread_pool.write.queue_size=10000
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
     volumes:
-      - /path/to/data:/usr/share/elasticsearch/data
+      - /path/to/data:/usr/share/elasticsearch1/data
   cortex:
     image: thehiveproject/cortex:3.1.1
     environment:
@@ -20,4 +21,3 @@ services:
       - elasticsearch
     ports:
       - "0.0.0.0:9001:9001"
-
