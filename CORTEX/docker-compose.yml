@@ -1,0 +1,23 @@
+services:
+  elasticsearch:
+    image: elasticsearch:7.9.1
+    environment:
+      - http.host=0.0.0.0
+      - discovery.type=single-node
+      - script.allowed_types=inline
+      - thread_pool.search.queue_size=100000
+      - thread_pool.write.queue_size=10000
+    volumes:
+      - /path/to/data:/usr/share/elasticsearch/data
+  cortex:
+    image: thehiveproject/cortex:3.1.1
+    environment:
+      - job_directory=/home/lab/cortex/jobs
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/lab/cortex/jobs:/home/lab/cortex/jobs
+    depends_on:
+      - elasticsearch
+    ports:
+      - "0.0.0.0:9001:9001"
+
